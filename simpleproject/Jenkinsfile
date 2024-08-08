@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                script {
+                    def mvnHome = tool 'M3' // Configure Maven tool in Jenkins
+                    sh "${mvnHome}/bin/mvn clean compile"
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                script {
+                    def mvnHome = tool 'M3'
+                    sh "${mvnHome}/bin/mvn test"
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying application...'
+                // Add deployment steps here
+            }
+        }
+    }
+}
