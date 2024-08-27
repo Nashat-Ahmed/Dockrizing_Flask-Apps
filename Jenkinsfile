@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds') // Add Docker Hub credentials in Jenkins
-        IMAGE_NAME = 'nashaat111/myflaskapp1'
-        IMAGE_TAG = 'nas'
+        DOCKERHUB_CREDENTIALS = credentials('docker-hub-repo') // Add Docker Hub credentials in Jenkins
+        IMAGE_NAME = 'nashaat111/webapp'
+        IMAGE_TAG = 'n.1'
     }
 
     stages {
@@ -35,7 +35,7 @@ pipeline {
         stage('Push to Docker Hub') {
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'DOCKERHUB_CREDENTIALS') {
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-repo') {
                         dockerImage.push("${IMAGE_TAG}")
                     }
                 }
